@@ -16,9 +16,9 @@ logging.info(f"Creating project by name: {project_name}")
 
 list_of_files = [
     ".github/workflows/.gitkeep",    # to keep unnecessary data. just like .gitignore
-    ".github/workflows/main.yaml",
+    ".github/workflows/main.yaml",    # for github pipeline to CI/CD pipeline
     f"{project_name}/__init__.py",
-    f"{project_name}/components/__init__.py",
+    f"{project_name}/components/__init__.py",  # ml pipeline file will be created inside the component
     f"{project_name}/entity/__init__.py",
     f"{project_name}/pipeline/__init__.py",
     f"{project_name}/logger/__init__.py",
@@ -27,9 +27,9 @@ list_of_files = [
     f"{project_name}/predictor.py",
     f"{project_name}/utils.py",
     f"configs/config.yaml",
-    "requirements.txt",
-    "setup.py",
-    "main.py"
+    "requirements.txt",  # to define all the dependencies
+    "setup.py",  # to get source code as a library
+    "main.py"     
 ]
 
 
