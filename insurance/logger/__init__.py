@@ -13,5 +13,7 @@ logging.basicConfig(filename=FILE_PATH,
                     filemode="w",
                     level=logging.DEBUG,
                     format="[%(asctime)s]  - %(levelname)s - %(message)s")
+
 # for the testing
-# logging.info(f"logging file testing !")
+if __name__ == "__main__": 
+    logging.info(f"logging file testing !")

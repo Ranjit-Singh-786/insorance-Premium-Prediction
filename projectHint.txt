@@ -2,7 +2,7 @@ project difficulty hints details
 1. dump the data into mongodb database
 2. create the project structure by the template.py file script
 
-SETUP.PY
+#SETUP.PY
 1 -e .   <-- this will indicate setup.py file. and "-e" means editable mode and "." means current working directory.
 2. find_packages()   <-- this will fetch all the package from your project.
 		in which "__init__py" file is existed. which will be considered as a package of this project.
@@ -13,5 +13,22 @@ SETUP.PY
 required libraries in this file  -->  setup from setuptools and typing
 
 4. don,t execute the setup.py file because it will autometically indicate by "-e ." from requirements.txt
+
+#logger
+
+1. importing method of logger file is different because it is written in __init__.py file.
+
+#Exception
+
+1. writt a static function to get clear cut idea of error.
+2. call the function inside the constructur.
+3. made a subchild class of Exception.
+
+# _pycache_/__init__.cpython-310.pvc
+
+both files are cache files which will be created by defualt. when we will import some code from
+the someone file. then it will create by defualt this _pycache_ file.
+so don,t confuse this file. it is unwanted file. which will create by default by the system.
+and it will  contain metadata of the file
 
  
