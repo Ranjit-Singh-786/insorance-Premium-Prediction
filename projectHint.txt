@@ -9,7 +9,7 @@ SETUP.PY
 3.pip install -r requirements.txt   <-- to install all dependency, and when you will install dependencies.
 		this file will indicate the setup.py file, bcz there is "-e ." indicator is mentioned.
 		after install the dependencies. one extra directory will initialized with in your current working directory
-		" insurance.egg-info " it has other all files which will contain the metadata of our project.
+		" insurance.egg-info " it has other all files which will contain the metadata of our project. and it will be ignore by git by defualt. 
 required libraries in this file  -->  setup from setuptools and typing
 
 4. don,t execute the setup.py file because it will autometically indicate by "-e ." from requirements.txt
