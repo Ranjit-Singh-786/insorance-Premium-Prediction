@@ -1,0 +1,69 @@
+#  --------->  Detailed project Report     <-----
+1. dump the data into mongodb database
+2. create the project structure by the template.py file script
+
+#main.py
+this file will responsible to collaborate all the files. there is some code are comment out.
+because we have testing some features of this project. and after testing successfully. i comment out those code.
+if you want test again you can execute all those code which i have comment out.
+
+#SETUP.PY
+1 -e .   <-- this will indicate setup.py file. and "-e" means editable mode and "." means current working directory.
+2. find_packages()   <-- this will fetch all the package from your project.
+		in which "__init__py" file is existed. which will be considered as a package of this project.
+3.pip install -r requirements.txt   <-- to install all dependency, and when you will install dependencies.
+		this file will indicate the setup.py file, bcz there is "-e ." indicator is mentioned.
+		after install the dependencies. one extra directory will initialized with in your current working directory
+		" insurance.egg-info " it has other all files which will contain the metadata of our project. and it will be ignore by git by defualt. 
+required libraries in this file  -->  setup from setuptools and typing
+
+4. don,t execute the setup.py file because it will autometically indicate by "-e ." from requirements.txt
+
+#logger
+
+1. importing method of logger file is different because it is written in __init__.py file.
+
+#Exception
+
+1. writt a static function to get clear cut idea of error.
+2. call the function inside the constructur.
+3. made a subchild class of Exception.
+
+# _pycache_/__init__.cpython-310.pvc
+
+both files are cache files which will be created by defualt. when we will import some code from
+the someone file. then it will create by defualt this _pycache_ file.
+so don,t confuse this file. it is unwanted file. which will create by default by the system.
+and it will  contain metadata of the file
+
+# .env
+in this file we will define all the custome Environment variable. so that 
+we can easily access all those variable. very easily.
+and by this file we will get some flexibility for our variable. for e.g if we will have need any
+path which will be frequently can be change in future. so without going in the code we will difine this
+path in the .env file. because if we will have need to change the path of this family, we will
+change in the .env file. it will update the path in the entire project. bcz it is custome variable.
+
+# insurance/utils.py
+in this file we will define all the function to get the output data.
+1. first i write the function to get the data from the mongodb
+
+# insurance/config.py
+
+this is configuration file. in which we will configre our all object.
+for e.g to use the mongodb database.we will have to configure our mongoclient.
+so mongoclient configuration will be define in this file. then we can esily use the 
+mongoclient from anywhere in the project.
+1. config the mongoclient 
+
+# insurance_logs
+ in this directory we will store all the logs file. to trace the execution of our project.
+ 
+ # dotenv libraries
+ it is used for to load the custome variable form the .env file.
+
+ # dataclasses libraries
+ it is just like class decorator. which provide some facility to our class.
+ it has some additional functionality. if we will use this class decorator. then we dont need
+ specify any constructur because it will initialized internally constructur and other many
+ more things. we can directly define the instance variable. just only specify the variable name and datatype.
