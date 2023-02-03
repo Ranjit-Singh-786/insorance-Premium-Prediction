@@ -21,6 +21,7 @@ def get_data(database:str,collection_name:str)->pd.DataFrame:
             logging.info(f"successfully removed")
         else:
             logging.warning(f"error occured during the _id column removing time")
+        return df
     except Exception as e:
         logging.warning(f"Data gethering operation failed")
         raise InsuranceException(e,sys)

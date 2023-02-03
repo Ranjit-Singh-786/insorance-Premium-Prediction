@@ -2,6 +2,7 @@ from insurance.logger import logging
 from insurance.exception import InsuranceException
 from insurance.utils import get_data
 from insurance.entity import config_entity
+from insurance.components.Data_ingestion import DataIngestion
 import os, sys
 
 #code for testing the logger and exception file
@@ -37,11 +38,16 @@ import os, sys
 
 # code for test all the path
 if __name__ == "__main__":
-    obj_of_training_pipl = config_entity.TrainingPipelineConfig()
-    obj = config_entity.DataingestionConfig(
-        Training_pipeline_config=obj_of_training_pipl
-    )
-    dictionary = obj.to_dict()
-    print(dictionary.keys())
-    print(dictionary['feature_store_file_path'])
+    try:
+        obj_of_training_pipl = config_entity.TrainingPipelineConfig()
+        obj = config_entity.DataingestionConfig(
+            Training_pipeline_config=obj_of_training_pipl)
+    
+        dataIngestion_object = DataIngestion(data_ingestion_dir=obj)
+        logging.info('calling the dataingestion method')
+        dataIngestion_object.initiate_data_ingestion()
+
+    except Exception as e:
+        logging.error('something wentwrong during calling the dataingestion instance method')
+        raise InsuranceException(e,sys)
 
