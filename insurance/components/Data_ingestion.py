@@ -15,8 +15,7 @@ class DataIngestion:
         try:
             self.data_ingestion_dir = data_ingestion_dir
         except Exception as e:
-            raise InsuranceException(e,sys)
-    
+            raise InsuranceException(e,sys)    
 # function to perform all the data ingestion operation
     def initiate_data_ingestion(self):
         try:
@@ -59,8 +58,6 @@ class DataIngestion:
             )
 
         except Exception as e:
-            instance_method_name = "initiate_data_ingestion"
-            logging.error(f"Error occured in {instance_method_name} method in DataIngestion component !")
             raise InsuranceException(e,sys)
 
 

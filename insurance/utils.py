@@ -4,6 +4,7 @@ import os, sys
 from insurance.config import mongoclient
 from insurance.logger import logging
 from insurance.exception import InsuranceException
+import yaml
 
 # function to load the data from the mongodb database
 def get_data(database:str,collection_name:str)->pd.DataFrame:
@@ -23,5 +24,28 @@ def get_data(database:str,collection_name:str)->pd.DataFrame:
             logging.warning(f"error occured during the _id column removing time")
         return df
     except Exception as e:
-        logging.warning(f"Data gethering operation failed")
+        raise InsuranceException(e,sys)
+
+# function to write content information in .yaml file
+def write_yaml_file(file_path:str,data:dict):
+    try:
+        file_dir = os.path.dirname(file_path) # fetch the directories path from path
+        os.makedirs(file_dir,exist_ok=True)  # created directories
+        logging.info('writing roport.yaml file')
+        with open(file_path,"w") as file_writer:
+            yaml.dump(data,file_writer)
+    except Exception as e:
+        raise InsuranceException(e,sys)
+
+# function to convert all numeric columns into float
+def convert_columns_float(df:pd.DataFrame,exclude_columns:list)->pd.DataFrame:
+    try:
+        for column in df.columns:
+            if column not in exclude_columns:
+                if df[column].dtypes != 'O':
+                    logging.info(f"converting the dtypes")
+                    df[column]=df[column].astype('float')
+                    logging.info(f"successfully converted the dtypes")
+        return df
+    except Exception as e:
         raise InsuranceException(e,sys)

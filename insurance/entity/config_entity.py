@@ -28,7 +28,6 @@ class DataingestionConfig:
             self.test_size = 0.2
             logging.info('successfully configured')
         except Exception as e:
-            logging.error("something went wrong !")
             raise InsuranceException(e,sys)
     #function to return all the instance variable as dict
     def to_dict(self,):
@@ -37,3 +36,10 @@ class DataingestionConfig:
         except Exception as e:
             raise InsuranceException(e,sys)
 
+# configuration all the path for the datavalidation components
+class DataValidationConfig:
+    def __init__(self,trainingPipelingeConfig:TrainingPipelineConfig):
+        self.data_validation_dir = os.path.join(trainingPipelingeConfig.artifact_dir,'data_validation')
+        self.report_file_path = os.path.join(self.data_validation_dir,'report.yaml')
+        self.missing_threshold:float = 0.2
+        self.base_df_file_path = os.path.join('insurance.csv')

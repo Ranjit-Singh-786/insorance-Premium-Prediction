@@ -1,8 +1,10 @@
 from insurance.logger import logging
 from insurance.exception import InsuranceException
 from insurance.utils import get_data
-from insurance.entity import config_entity
+from insurance.entity import config_entity,artifact_entity
 from insurance.components.Data_ingestion import DataIngestion
+from insurance.components.Data_validation import DataValidation
+
 import os, sys
 
 #code for testing the logger and exception file
@@ -37,17 +39,27 @@ import os, sys
 #         raise InsuranceException(e,sys)
 
 # code for test all the path
-if __name__ == "__main__":
+if __name__ == "__main__":        
     try:
         obj_of_training_pipl = config_entity.TrainingPipelineConfig()
-        obj = config_entity.DataingestionConfig(
+        obj_of_dataingestion_config = config_entity.DataingestionConfig(
             Training_pipeline_config=obj_of_training_pipl)
     
-        dataIngestion_object = DataIngestion(data_ingestion_dir=obj)
-        logging.info('calling the dataingestion method')
+        dataIngestion_object = DataIngestion(data_ingestion_dir=obj_of_dataingestion_config)
+        # logging.info('calling the dataingestion method')
         dataIngestion_object.initiate_data_ingestion()
 
+        datavalidation_config_obj = config_entity.DataValidationConfig(trainingPipelingeConfig = obj_of_training_pipl)
+        obj_of_data_ingestionArtifact = artifact_entity.DataIngestionArtifact(feature_store_file_path=obj_of_dataingestion_config.feature_store_file_path,
+                                                                               train_file_path=obj_of_dataingestion_config.train_file_path ,
+                                                                               test_file_path=obj_of_dataingestion_config.test_file_path)
+        obj_of_data_validation = DataValidation(datavalidationconfig=datavalidation_config_obj,
+                                                dataingestionArtifact = obj_of_data_ingestionArtifact)
+        data_validation_artifact = obj_of_data_validation.initiate_data_validation()
     except Exception as e:
-        logging.error('something wentwrong during calling the dataingestion instance method')
         raise InsuranceException(e,sys)
+
+
+
+
 

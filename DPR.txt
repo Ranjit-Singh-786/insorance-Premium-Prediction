@@ -73,3 +73,6 @@ mongoclient from anywhere in the project.
 
  # config_entity.py
  in this file we will config of all the artifact.
+
+ # dataingestion
+ split the data into train,test,validation data.
