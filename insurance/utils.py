@@ -4,7 +4,9 @@ import os, sys
 from insurance.config import mongoclient
 from insurance.logger import logging
 from insurance.exception import InsuranceException
+from insurance.entity import config_entity
 import yaml
+import pickle
 
 # function to load the data from the mongodb database
 def get_data(database:str,collection_name:str)->pd.DataFrame:
@@ -49,3 +51,25 @@ def convert_columns_float(df:pd.DataFrame,exclude_columns:list)->pd.DataFrame:
         return df
     except Exception as e:
         raise InsuranceException(e,sys)
+
+# to save the transform data    
+def save_numpy_array_data(file_path:config_entity.DataValidationConfig,array:np.array):
+    try:
+        logging.info('saving operation started by function')
+        file_dir = os.path.dirname(file_path)
+        os.makedirs(file_dir,exist_ok=True)
+        np.save(open(file_path,'wb'),array)
+    except Exception as e:
+        raise InsuranceException(e, sys)
+    
+# to save the preprocess models
+def save_object(file_path:config_entity.DataTransformationConfig,model_obj:object):
+    try:
+        logging.info(f"saving the preprocess models")
+        file_dir = os.path.dirname(file_path)
+        os.makedirs(file_dir,exist_ok=True)
+        pickle.dump(model_obj,open(file_path,'wb'))
+        logging.info(f"successfully saved your preprocessing models")
+    except Exception as e:
+        raise InsuranceException(e,sys)
+

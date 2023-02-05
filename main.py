@@ -4,6 +4,7 @@ from insurance.utils import get_data
 from insurance.entity import config_entity,artifact_entity
 from insurance.components.Data_ingestion import DataIngestion
 from insurance.components.Data_validation import DataValidation
+from insurance.components.Data_transformation import DataTransFormation
 
 import os, sys
 
@@ -39,23 +40,24 @@ import os, sys
 #         raise InsuranceException(e,sys)
 
 # code for test all the path
-if __name__ == "__main__":        
-    try:
+if __name__ == "__main__":
+    try:        
         obj_of_training_pipl = config_entity.TrainingPipelineConfig()
         obj_of_dataingestion_config = config_entity.DataingestionConfig(
             Training_pipeline_config=obj_of_training_pipl)
     
         dataIngestion_object = DataIngestion(data_ingestion_dir=obj_of_dataingestion_config)
         # logging.info('calling the dataingestion method')
-        dataIngestion_object.initiate_data_ingestion()
+        retrn_obj_of_dataingestionArtifact = dataIngestion_object.initiate_data_ingestion()
 
         datavalidation_config_obj = config_entity.DataValidationConfig(trainingPipelingeConfig = obj_of_training_pipl)
-        obj_of_data_ingestionArtifact = artifact_entity.DataIngestionArtifact(feature_store_file_path=obj_of_dataingestion_config.feature_store_file_path,
-                                                                               train_file_path=obj_of_dataingestion_config.train_file_path ,
-                                                                               test_file_path=obj_of_dataingestion_config.test_file_path)
         obj_of_data_validation = DataValidation(datavalidationconfig=datavalidation_config_obj,
-                                                dataingestionArtifact = obj_of_data_ingestionArtifact)
+                                                dataingestionArtifact = retrn_obj_of_dataingestionArtifact)
         data_validation_artifact = obj_of_data_validation.initiate_data_validation()
+        obj_of_datatransformationConfig = config_entity.DataTransformationConfig(trainingPipelingeConfig=obj_of_training_pipl)
+        obj_of_datatransformation = DataTransFormation(datatrasnformartion=obj_of_datatransformationConfig,
+                                                       dataingestionArtifact=retrn_obj_of_dataingestionArtifact)
+        obj_of_datatrasnformation_Artifact = obj_of_datatransformation.initiate_data_transformation()
     except Exception as e:
         raise InsuranceException(e,sys)
 

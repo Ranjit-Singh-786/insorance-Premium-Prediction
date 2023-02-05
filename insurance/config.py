@@ -9,5 +9,5 @@ class EnviromentVariable:
 # configure the mongoclient the mongoclient
 env_var = EnviromentVariable()
 mongoclient = pymongo.MongoClient(env_var.mongodb_url)
-TARGET_COLUMN = 'expenses'
+TARGET_COLUMN = 'charges'
 print(env_var.mongodb_url)

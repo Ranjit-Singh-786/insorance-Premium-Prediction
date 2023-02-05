@@ -56,7 +56,7 @@ class DataIngestion:
                 train_file_path=self.data_ingestion_dir.train_file_path,
                 test_file_path=self.data_ingestion_dir.test_file_path
             )
-
+            return DataIngestionArtifact
         except Exception as e:
             raise InsuranceException(e,sys)
 

@@ -76,3 +76,17 @@ mongoclient from anywhere in the project.
 
  # dataingestion
  split the data into train,test,validation data.
+
+ # datavalidation
+ when we will load our data. we will validate the data. by the datavalidation.py file.
+ once the data successfully validated. then further pipeline will proceed. otherwise it will raise
+ error.
+
+
+
+ # DataTransformation
+-----> operation will be perform in this file
+1.handling missing value
+2.handling outliers
+3. feature transformation
+4. imbalance data handling
