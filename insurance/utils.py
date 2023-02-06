@@ -62,14 +62,45 @@ def save_numpy_array_data(file_path:config_entity.DataValidationConfig,array:np.
     except Exception as e:
         raise InsuranceException(e, sys)
     
+
+# to load transformed numpy array
+def load_transformed_data(file_path:str):
+    try:
+        logging.info('loading transform data')
+        if not os.path.exists(file_path):
+            raise Exception(f'file not foud {file_path}')
+        with open(file_path,'rb') as file_obj:
+            data = np.load(file_obj)
+        return data
+    except Exception as e:
+        raise InsuranceException(e,sys)
+    
 # to save the preprocess models
-def save_object(file_path:config_entity.DataTransformationConfig,model_obj:object):
+def save_object(file_path:str,model_obj:object):
+    """"this function will save the model object in pickle
+    formate.
+    """
     try:
         logging.info(f"saving the preprocess models")
         file_dir = os.path.dirname(file_path)
         os.makedirs(file_dir,exist_ok=True)
         pickle.dump(model_obj,open(file_path,'wb'))
         logging.info(f"successfully saved your preprocessing models")
+    except Exception as e:
+        raise InsuranceException(e,sys)
+    
+
+def load_model(file_path:str):
+    """ this function will load the pickle models,
+    do,nt try to load any otherelse pickle model.
+    """
+    try:
+        logging.info(f"loading the model")
+        if not os.path.exists(file_path):
+            raise Exception(f"file not found error {file_path}")
+        else:
+            model_obj = pickle.load(open(file_path,'rb'))
+        return model_obj
     except Exception as e:
         raise InsuranceException(e,sys)
 

@@ -7,6 +7,7 @@ TRAIN_FILE_NAME = os.getenv('TRAIN_FILE_NAME')
 TEST_FILE_NAME = os.getenv('TEST_FILE_NAME')
 TRANSFORMER_OBJECT_FILE_NAME = os.getenv('TRANSFORMER_OBJECT_FILE_NAME')
 TARGET_ENCODER_OBJECT_FILE_NAME = os.getenv('TARGET_ENCODER_OBJECT_FILE_NAME')
+MODEL_NAME = "trained_model.pkl"
 
 class TrainingPipelineConfig:
     def __init__(self):
@@ -54,3 +55,10 @@ class DataTransformationConfig:
         self.transformed_train_path =  os.path.join(self.data_transformation_dir,"transformed",TRAIN_FILE_NAME.replace("csv","npz"))  # after operation save into  tar format
         self.transformed_test_path =os.path.join(self.data_transformation_dir,"transformed",TEST_FILE_NAME.replace("csv","npz"))
         self.target_encoder_path = os.path.join(self.data_transformation_dir,"target_encoder",TARGET_ENCODER_OBJECT_FILE_NAME)   #target_encoder.pkl
+
+class ModelTrainerConfig:
+    def __init__(self,TrainingPipelineConfig:TrainingPipelineConfig):
+        self.model_trainer_dir = os.path.join(TrainingPipelineConfig.artifact_dir,'model_trainer')
+        self.model_file_path = os.path.join(self.model_trainer_dir,'Trained_model',MODEL_NAME)
+        self.expected_accuracy = 0.7
+        self.overfiting_threshold = 0.2

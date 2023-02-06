@@ -18,3 +18,10 @@ class DataTransformationArtifact:
     transformed_train_path:str
     transformed_test_path:str
     target_encoder_path:str
+
+
+@dataclass
+class ModelTrainerArtifact:
+    model_file_path:str
+    r2_train_score:str
+    r2_test_score:str

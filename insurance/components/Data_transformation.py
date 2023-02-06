@@ -18,7 +18,7 @@ from sklearn.preprocessing import RobustScaler
 # handling missing value
 # handling outliers
 # feature transformation
-# imbalance data handling
+
 
 class DataTransFormation:
     def __init__(self,
@@ -67,17 +67,17 @@ class DataTransFormation:
 
                 # to deal with categorical columns
                 label_encoder_obj = LabelEncoder()
+                logging.info(f"shape of the data before labelencoded :- {input_feature_train_df.shape}")
                 for col in input_feature_train_df.columns:
                     if input_feature_test_df[col].dtypes == 'O':
-                        logging.info(f"shape of the data before labelencoded :- {input_feature_train_df.shape}")
                         input_feature_train_df[col] = label_encoder_obj.fit_transform(input_feature_train_df[col])
                         input_feature_test_df[col] = label_encoder_obj.fit_transform(input_feature_test_df[col])
-                        logging.info(f"after label encoded data shape :- {input_feature_train_df.shape}")
                     else:
                         # else do nothing
                         input_feature_train_df[col] = input_feature_train_df[col]
                         input_feature_test_df[col] = input_feature_test_df[col]
-                
+                logging.info(f"after label encoded data shape :- {input_feature_train_df.shape}")
+
                 # to deal with numerical columns
                 transformation_pipleine = DataTransFormation.imputer_and_scaler()
                 # fitting the pipeline on training data without target columns
@@ -87,7 +87,7 @@ class DataTransFormation:
                 input_feature_train_arr = transformation_pipleine.transform(input_feature_train_df)
                 input_feature_test_arr = transformation_pipleine.transform(input_feature_test_df)
                 
-                # preparing the final data as a float to all numeric features
+                # preparing the final data as a np.array bcz save_np function wants to np.array format data
                 logging.info(f"preparing the final transform data with target column")
                 train_arr = np.c_[input_feature_train_arr, target_feature_train_arr ]
                 test_arr = np.c_[input_feature_test_arr, target_feature_test_arr]
