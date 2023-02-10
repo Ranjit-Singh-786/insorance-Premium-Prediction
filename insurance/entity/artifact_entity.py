@@ -23,5 +23,11 @@ class DataTransformationArtifact:
 @dataclass
 class ModelTrainerArtifact:
     model_file_path:str
-    r2_train_score:str
-    r2_test_score:str
+    r2_train_score:float
+    r2_test_score:float
+
+# to get the output of new model
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted: bool
+    improved_accuracy: float

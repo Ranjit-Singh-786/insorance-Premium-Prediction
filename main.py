@@ -6,7 +6,7 @@ from insurance.components.Data_ingestion import DataIngestion
 from insurance.components.Data_validation import DataValidation
 from insurance.components.Data_transformation import DataTransFormation
 from insurance.components.model_trainer import ModelTrainer
-
+from insurance.components.model_evaluation import ModelEvaluation
 import os, sys
 
 #code for testing the logger and exception file
@@ -65,6 +65,14 @@ if __name__ == "__main__":
                                            datatransformationArtifact=obj_of_datatrasnformation_Artifact)
         
         obj_of_modelTrainerArtifact = obj_of_modelTrainer.initiate_modelTrainer()
+
+              # Model Evaluation
+        model_eval_config = config_entity.ModelEvaluationConfig(training_pipeline_config = obj_of_training_pipl)
+        model_eval = ModelEvaluation(model_eval_config = model_eval_config,
+                                    data_ingestion_artifact = retrn_obj_of_dataingestionArtifact,
+                                    data_transformation_artifact = obj_of_datatrasnformation_Artifact,
+                                    model_trainer_artifact = obj_of_modelTrainerArtifact)
+        model_evl_artifact = model_eval.intitate_model_evaluation()
     except Exception as e:
         raise InsuranceException(e,sys)
 

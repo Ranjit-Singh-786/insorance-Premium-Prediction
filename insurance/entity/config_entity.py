@@ -62,3 +62,8 @@ class ModelTrainerConfig:
         self.model_file_path = os.path.join(self.model_trainer_dir,'Trained_model',MODEL_NAME)
         self.expected_accuracy = 0.7
         self.overfiting_threshold = 0.2
+
+
+class ModelEvaluationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        self.change_threshold = 0.01
