@@ -7,7 +7,7 @@ TRAIN_FILE_NAME = os.getenv('TRAIN_FILE_NAME')
 TEST_FILE_NAME = os.getenv('TEST_FILE_NAME')
 TRANSFORMER_OBJECT_FILE_NAME = os.getenv('TRANSFORMER_OBJECT_FILE_NAME')
 TARGET_ENCODER_OBJECT_FILE_NAME = os.getenv('TARGET_ENCODER_OBJECT_FILE_NAME')
-MODEL_NAME = "trained_model.pkl"
+MODEL_NAME = os.getenv('MODEL_NAME')
 
 class TrainingPipelineConfig:
     def __init__(self):

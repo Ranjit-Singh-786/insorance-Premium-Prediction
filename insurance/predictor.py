@@ -2,20 +2,16 @@ import os
 from typing import Optional
 from insurance.entity.config_entity import TRANSFORMER_OBJECT_FILE_NAME,MODEL_NAME,TARGET_ENCODER_OBJECT_FILE_NAME
 
-# Folder ( new model saved )
-# comparision new model vs old model
-# accpedted else rejected
-
-
-# save_model -> 0 -> 1 -> 2 -> 3
 
 class ModelResolver:
-    def __init__(self, model_registry:str = "saved_models", #
-                transfomer_dir_name = "transfomer",
-                traget_encoder_dir_name = "target_encoder",
-                model_dir_name = "model"):
+    # all are default instance variable name
+    def __init__(self, model_registry:str = "saved_models", #main directory for futre training
+                transfomer_dir_name = "transfomer", # for keep transformer
+                traget_encoder_dir_name = "target_encoder", # for keep labelencoder
+                model_dir_name = "model"):  #to keep model 
 
         self.model_registry = model_registry
+        #object of this class will be created in modelEvaluation class
         os.makedirs(self.model_registry, exist_ok=True)
         self.transfomer_dir_name = transfomer_dir_name
         self.traget_encoder_dir_name = traget_encoder_dir_name
@@ -53,7 +49,6 @@ class ModelResolver:
             if latest_dir is None:
                 raise Exception(f"Transform data is not avaliable")
 
-            # return os.path.join(latest_dir, self.traget_encoder_dir_name, TARGET_ENCODER_OBJECT_FILE_NAME)
             return os.path.join(latest_dir, self.transformer_dir_name,TRANSFORMER_OBJECT_FILE_NAME)
         except Exception as e:
             raise e
@@ -73,7 +68,7 @@ class ModelResolver:
 
         try:
             latest_dir = self.get_latest_dir_path()
-            if latest_dir ==  None: #Here replace is to ==
+            if latest_dir ==  None:
                 return os.path.join(self.model_registry, f"{0}")
 
             latest_dir_num = int(os.path.basename(self.get_latest_dir_path()))

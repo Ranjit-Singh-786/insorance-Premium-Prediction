@@ -66,7 +66,7 @@ if __name__ == "__main__":
         
         obj_of_modelTrainerArtifact = obj_of_modelTrainer.initiate_modelTrainer()
 
-              # Model Evaluation
+        # Model Evaluation
         model_eval_config = config_entity.ModelEvaluationConfig(training_pipeline_config = obj_of_training_pipl)
         model_eval = ModelEvaluation(model_eval_config = model_eval_config,
                                     data_ingestion_artifact = retrn_obj_of_dataingestionArtifact,

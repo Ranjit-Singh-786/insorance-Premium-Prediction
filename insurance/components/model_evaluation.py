@@ -40,9 +40,8 @@ class ModelEvaluation:
             if latest_dir_path == None:
                 model_eval_artifact = artifact_entity.ModelEvaluationArtifact(is_model_accepted=True,
                 improved_accuracy=None)
-                
                 logging.info(f"Model evaluation artifact: {model_eval_artifact}")
-
+                # if above condition is true then function will stoped here
                 return model_eval_artifact
 
 
@@ -52,14 +51,14 @@ class ModelEvaluation:
             traget_encoder_path = self.model_resolver.get_latest_target_encoder_path()
 
             # Previosu model
-            transformer = load_object(file_path=transfoer_path)
-            model = load_object(file_path=model_path)
-            target_encoder = load_object(file_path=traget_encoder_path)
+            transformer = load_model(file_path=transfoer_path)
+            model = load_model(file_path=model_path)
+            target_encoder = load_model(file_path=traget_encoder_path)
 
             # New  model
-            current_transformer = load_object(file_path=self.data_transformation_artifact.transform_object_path)
-            current_model = load_object(file_path=self.model_trainer_artifact.model_path)
-            current_target_encoder = load_object(file_path=self.data_transformation_artifact.target_encoder_path)
+            current_transformer = load_model(file_path=self.data_transformation_artifact.transform_object_path)
+            current_model = load_model(file_path=self.model_trainer_artifact.model_path)
+            current_target_encoder = load_model(file_path=self.data_transformation_artifact.target_encoder_path)
 
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             target_df = test_df[TARGET_COLUMN]

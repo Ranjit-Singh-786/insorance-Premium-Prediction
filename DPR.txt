@@ -90,3 +90,14 @@ mongoclient from anywhere in the project.
 2.handling outliers
 3. feature transformation
 4. imbalance data handling
+
+# predictor.py , model_evaluation 
+in this file i has write code for the future training, so that when we will 
+again trained our model. if model accuracy is good our to the previous, then we will 
+take that model for the production Environment.
+and remember there is defined one conditon. and according to my condition
+if the model accuracy is good not to our previous then no infomation of that model
+well be keep. and if the accuracy is high to the information. then keep the model in the
+production and save all the information about my model in the save_model directory.
+this will keep all the iformation from our model.
+so that we can evaluate our new model to the previous model.
