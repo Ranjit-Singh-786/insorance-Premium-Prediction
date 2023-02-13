@@ -7,6 +7,8 @@ from insurance.components.Data_validation import DataValidation
 from insurance.components.Data_transformation import DataTransFormation
 from insurance.components.model_trainer import ModelTrainer
 from insurance.components.model_evaluation import ModelEvaluation
+from insurance.components.model_pusher import ModelPusher
+from insurance.predictor import ModelResolver
 import os, sys
 
 #code for testing the logger and exception file
@@ -40,7 +42,7 @@ import os, sys
 #         logging.warning(f"data gathering operation failed")
 #         raise InsuranceException(e,sys)
 
-# code for test all the path
+#building a pipeline code
 if __name__ == "__main__":
     try:        
         obj_of_training_pipl = config_entity.TrainingPipelineConfig()
@@ -73,6 +75,14 @@ if __name__ == "__main__":
                                     data_transformation_artifact = obj_of_datatrasnformation_Artifact,
                                     model_trainer_artifact = obj_of_modelTrainerArtifact)
         model_evl_artifact = model_eval.intitate_model_evaluation()
+
+        #modelpusher
+        modelpusherConfig = config_entity.ModelPusherConfig(training_pipeline_config=obj_of_training_pipl)
+        obj_of_model_pusher = ModelPusher(modelpusherconfig=modelpusherConfig,
+                                          transformationArtifact=obj_of_datatrasnformation_Artifact,
+                                          modeltrainerArtifact=obj_of_modelTrainerArtifact)
+        obj_of_modelPusherArtifact = obj_of_model_pusher.initiate_Modelpusher()
+
     except Exception as e:
         raise InsuranceException(e,sys)
 

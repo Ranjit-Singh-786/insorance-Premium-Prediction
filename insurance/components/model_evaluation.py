@@ -37,7 +37,7 @@ class ModelEvaluation:
         try:
             latest_dir_path = self.model_resolver.get_latest_dir_path()
 
-            if latest_dir_path == None:
+            if latest_dir_path == None:   # after pusher operation it will not be None
                 model_eval_artifact = artifact_entity.ModelEvaluationArtifact(is_model_accepted=True,
                 improved_accuracy=None)
                 logging.info(f"Model evaluation artifact: {model_eval_artifact}")
@@ -45,48 +45,46 @@ class ModelEvaluation:
                 return model_eval_artifact
 
 
-            # Find location previous model
+            # Find location previous model in saved_model
             transfoer_path = self.model_resolver.get_latest_transformer_path()
             model_path = self.model_resolver.get_latest_model_path()
             traget_encoder_path = self.model_resolver.get_latest_target_encoder_path()
 
-            # Previosu model
+            # Previosu model from saved_models dir
             transformer = load_model(file_path=transfoer_path)
             model = load_model(file_path=model_path)
             target_encoder = load_model(file_path=traget_encoder_path)
 
-            # New  model
+            # to get the current model
             current_transformer = load_model(file_path=self.data_transformation_artifact.transform_object_path)
             current_model = load_model(file_path=self.model_trainer_artifact.model_path)
             current_target_encoder = load_model(file_path=self.data_transformation_artifact.target_encoder_path)
 
-            test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
-            target_df = test_df[TARGET_COLUMN]
-            y_ture = target_df
-
-
+            # get the transform_test  data. to evaluate both model, saved_model Vs current model
+            trasnform_test_data = utils.load_transformed_data(file_path=self.data_transformation_artifact.transformed_test_path)
             input_features_name = list(transformer.feature_names_in_)
-            for i in input_features_name:
-                if test_df[i].dtypes == 'object':
-                    test_df[i] = target_encoder.fit_transform(test_df[i])
-
-            input_arr = transformer.transform(test_df[input_features_name])
+            target_df = trasnform_test_data[TARGET_COLUMN]
+            input_arr = trasnform_test_data[input_features_name]
+            y_true = target_df
+            # previous model testing
             y_pred = model.predict(input_arr)
+            previous_model_score = r2_score(y_true=y_true, y_pred=y_pred)
+            logging.info(f"accuracy of saved_model model on transform test data :- {previous_model_score}")
+            #PREVIOS transformer MODEL from saved_model
+            # for i in input_features_name:
+            #     if test_df[i].dtypes == 'object':
+            #         # labelencoding
+            #         test_df[i] = target_encoder.transform(test_df[i])
+            # input_arr = transformer.transform(test_df[input_features_name])
 
-
-            # Comparision b/w new model and old model
-
-            previous_model_score = r2_score(y_true=y_ture, y_pred=y_pred)
-
-
-            # Accuracy current model
+            # Accuracy of current model
 
             input_feature_name = list(current_transformer.feature_names_in_)
-            input_arr = current_transformer.transform(test_df[input_feature_name])
             y_pred = current_model.predict(input_arr)
-            y_true = target_df
 
             current_model_score = r2_score(y_true=y_true, y_pred=y_pred)
+            logging.info(f"accuracy of current model on transform test data :- {current_model_score}")
+
 
 
             # FInal comparision between both model
@@ -97,6 +95,14 @@ class ModelEvaluation:
 
             model_eval_artifact = artifact_entity.ModelEvaluationArtifact(is_model_accepted =  True, 
             improved_accuracy=current_model_score - previous_model_score)
+            logging.info(f"current_model_score - previous_model_score = {current_model_score - previous_model_score}")
+
+            # write the message in log which one is better
+            is_good_or_not = current_model_score - previous_model_score
+            if is_good_or_not >= self.model_eval_config.change_threshold:
+                logging.info(f"current model is good than previous model")
+            else:
+                logging.info(f"current model is not good to our previous model")
 
             return model_eval_artifact
 

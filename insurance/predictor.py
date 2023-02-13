@@ -63,21 +63,22 @@ class ModelResolver:
             return os.path.join(latest_dir, self.traget_encoder_dir_name, TARGET_ENCODER_OBJECT_FILE_NAME)
         except Exception as e:
             raise e
-# 5
+        
+    # if empty then created path for "0" otherwise path for +1
     def get_latest_save_dir_path(self)->str:
 
         try:
             latest_dir = self.get_latest_dir_path()
             if latest_dir ==  None:
                 return os.path.join(self.model_registry, f"{0}")
-
-            latest_dir_num = int(os.path.basename(self.get_latest_dir_path()))
-            return os.path.join(self.model_registry, f"{latest_dir_num + 1}") ## add 1 so that it will increase eveytime
+            # if it is not None
+            latest_dir_num = int(os.path.basename(self.get_latest_dir_path())) #basename --> last location of this path
+            return os.path.join(self.model_registry, f"{latest_dir_num + 1}") ## add 1 so that it will increase everytime
         except Exception as e:
             raise e
 # 6
-    def get_latest_save_model_path(self):
 
+    def get_latest_save_model_path(self):
         try:
             latest_dir = self.get_latest_save_dir_path()
             return os.path.join(latest_dir, self.model_dir_name, MODEL_NAME) # model.pkl
