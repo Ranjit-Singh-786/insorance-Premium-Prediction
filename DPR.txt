@@ -68,6 +68,9 @@ mongoclient from anywhere in the project.
  specify any constructur because it will initialized internally constructur and other many
  more things. we can directly define the instance variable. just only specify the variable name and datatype.
 
+ #.github\workflows\.main.yaml
+ in this file we will write code for github action. to automate the developer  contribution event and
+ event, issue event. PR Event. and many more event you can configure
  # artifact.py
  it is resposible to generate output and save into the artifact_dir
 

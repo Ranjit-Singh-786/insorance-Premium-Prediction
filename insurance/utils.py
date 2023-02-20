@@ -98,6 +98,7 @@ def load_model(file_path:str):
             raise Exception(f"file not found error {file_path}")
         else:
             model_obj = pickle.load(open(file_path,'rb'))
+            logging.info(f"successfully load the model")
         return model_obj
     except Exception as e:
         raise InsuranceException(e,sys)
