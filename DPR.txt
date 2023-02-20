@@ -101,3 +101,16 @@ well be keep. and if the accuracy is high to the information. then keep the mode
 production and save all the information about my model in the save_model directory.
 this will keep all the iformation from our model.
 so that we can evaluate our new model to the previous model.
+
+#predict.py
+when you will run this file it has a single function which are calling inside this file
+in which you will have to pass the single parameter which is
+database = bool. if you will select True then this function will load the data from the mongodb.
+and fetch the 500 random sample from the available dataset do the batch prediction.
+and if you will choose the False then it will give the batch prediction from your defualt dataset which are
+available in your current working directories. e.g insorance.csv file
+
+function of this file is define in the pipeline/batch_prediction.py file.
+and give the batch prediction it will save the prediction with your input in the form of 
+.csv file in the prediction directory with timestamp name convention. so that we 
+can easily determine when we was did this prediction.

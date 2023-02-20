@@ -41,7 +41,7 @@ class ModelPusher:
             model_path = self.model_resolver.get_latest_save_model_path()
 
             # to save the models in saved_models
-            utils.save_object(file_path=transfoermer_path,model_obj=transfoermer_path)
+            utils.save_object(file_path=transfoermer_path,model_obj=transformer)
             utils.save_object(file_path=encoder_path,model_obj=target_encoder)
             utils.save_object(file_path=model_path,model_obj=model)
             logging.info(f"saved models in saved_models")

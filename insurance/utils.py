@@ -91,9 +91,7 @@ def save_object(file_path:str,model_obj:object):
     
 
 def load_model(file_path:str):
-    """ this function will load the pickle models,
-    do,nt try to load any otherelse pickle model.
-    """
+
     try:
         logging.info(f"loading the model")
         if not os.path.exists(file_path):
