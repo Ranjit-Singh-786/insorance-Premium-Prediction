@@ -12,7 +12,7 @@ from insurance.predictor import ModelResolver
 import os, sys
 
 
-def Run_training_file():          
+def RunTrainingPipeline():          
         try:           
             logging.info(f"Runing The Training pipeline !")
             obj_of_training_pipl = config_entity.TrainingPipelineConfig()
