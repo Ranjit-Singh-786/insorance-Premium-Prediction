@@ -11,13 +11,9 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.impute import SimpleImputer
 # it is imported to scale the outliers.
 from sklearn.preprocessing import RobustScaler   
-#from imblearn.combine import SMOTETomek
+#from imblearn.combine import SMOTE
 
 
-# -----> operation will be perform in this file
-# handling missing value
-# handling outliers
-# feature transformation
 
 
 class DataTransFormation:

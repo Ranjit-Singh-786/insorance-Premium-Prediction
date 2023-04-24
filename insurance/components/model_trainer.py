@@ -44,6 +44,8 @@ class ModelTrainer:
 
             model = self.declared_model(x= x_train,y= y_train)
             logging.info(f"model fitted on our dataset")
+            logging.info(f"training data sample {x_train[0]} and {y_train[0]}")
+            logging.info(f"model training data shape {x_train.shape}")
 
             logging.info('getting the prediction')
             prediction_on_training_data =  model.predict(x_train)

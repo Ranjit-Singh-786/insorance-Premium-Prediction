@@ -1,15 +1,28 @@
-FROM python:3.8
-USER root
+FROM python:3.8-slim-buster
+# USER root
 # to make repository to store snapshot of project in dockerimage
-RUN mkdir /app  
+# RUN mkdir /app  
 # to copy all the snapshot in app repository .means from current directory    
-COPY . /app/
+WORKDIR /app
+COPY . /app
 # to define current working directory inside the app directory
-WORKDIR /app/
+
 # to install all the dependency
-RUN pip3 install -r requirements.txt
-RUN ["python", "train.py"] 
-RUN ["python",'main.py']
+RUN pip install -r requirements.txt
+CMD ["python", "train.py"]
+
+
+
+
+
+
+
+
+
+
+
+
+# CMD ["python",'main.py']
 
 
 # alternative command for above command

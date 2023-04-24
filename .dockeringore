@@ -3,7 +3,6 @@ insurance_logs
 prediction
 saved_models
 *.egg-info
-.env
 DPR.txt
 data_dump.py
 README.md 

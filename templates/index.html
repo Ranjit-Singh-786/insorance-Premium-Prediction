@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Premium Prediction</title>
+<!--	<link rel="stylesheet" href="{{url_for('static' , filename ='CSS/style.css')}}">-->
+
+
+	<link rel="stylesheet" type="text/css" href="../static/CSS/style.css">
+
+</head>
+<body>
+<form action="{{url_for('predict')}}" method="post">
+
+	<table class="containers" >
+
+		<tr>
+			<td><center>
+				<h1>
+					<b>Insurance Premium Prediction</b>
+					
+				
+				</h1>
+				</center>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<center>
+					<select name="region" class="text">
+						<option value="southeast">southeast</option>
+						<option value="southeast">southeast</option>
+						<option value="northwest">northwest</option>
+						<option value="northeast">northeast</option>
+
+					</select>
+				</center>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<center>
+					<label for="age" class="label">smoker :</label>
+				</center>
+			</td>
+
+		</tr>
+
+		<tr>
+			<td>
+				<center>
+					<select name="smoker" class="text">
+						<p>smoker</p>
+						<option value="yes">YES</option>
+						<option value="no">NO</option>
+
+					</select>
+				</center>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<center>
+					<label for="age" class="label">sex :</label>
+				</center>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<center>
+					<select name="sex" class="text">
+						<p>sex</p>
+						<option value="male">Male</option>
+						<option value="female">Female</option>
+
+
+					</select>
+				</center>
+			</td>
+
+		</tr>
+
+		<tr>
+			<td>
+				<center>
+					<label for="age" class="label">Age :</label>
+				</center>
+			</td>
+
+		</tr>
+		<tr>
+			<td>
+				<center>
+					<input type="text" class="text" name="age" id="age" placeholder="Enter Age">
+				</center><br>
+			</td>
+		</tr>
+
+		
+
+		<tr>
+			<td>
+				<center>
+					<label for="bmi" class="label">BMI :</label>
+				</center>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<center>
+				<input type="text" class="text" name="bmi" id="bmi" placeholder="Enter BMI">
+			</center><br>
+				</td>
+		</tr>
+
+		<tr>
+			<td>
+				<center>
+					<label for="children" class="label">Children :</label>
+				</center>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<center>
+					<input type="text" class="text" name="children" id="children" placeholder="Enter Children">
+			    </center><br>
+			</td>
+		</tr>
+
+
+		
+		<tr>
+			<td>
+				<center>
+					<button type="submit" class="predictbtn">Predict</button>
+				</center><br>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<center>
+					<div  class ="result">
+						<p>{{Predict_Text}}</p>
+					</div>
+				</center><br>
+			</td>
+		</tr>
+	</table>
+	
+</form>
+
+</body>
+</html>
