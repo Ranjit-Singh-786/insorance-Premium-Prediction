@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 import joblib
 from sklearn.preprocessing import LabelEncoder
-
+# from insurance import utils
 import pandas as pd
 import numpy as np
 import sklearn
@@ -15,10 +15,9 @@ transformer_path = r"C:\Users\Ranjit Singh\Desktop\insorance-Premium-Prediction\
 
 # load our model file
 model = pickle.load(open(model_path,'rb'))
-label_encoder = joblib.load(label_encoder_path,'rb')
-transformer = joblib.load(transformer_path,'rb')
+label_encoder = pickle.load(open(label_encoder_path,'rb'))
+transformer = pickle.load(open(transformer_path,'rb'))
 
-# Object for Flask
 app = Flask(__name__)
 
 
@@ -30,9 +29,7 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-
-
-        
+ 
         age = int(request.form['age'])
         sex = str(request.form['sex'])
         bmi = float(request.form['bmi'])
@@ -43,24 +40,30 @@ def predict():
         # 2. create DataFrame
         data = [[age, sex, bmi, children, smoker,region]]
         column_name = ['age', 'sex', 'bmi', 'children', 'smoker','region']
+        
         data_model = pd.DataFrame(data, columns=column_name)
         # return str(data_model.loc[0])
+
+
+
 
 # Transformation the data
 
         ### label encoding
         for col in data_model.columns:
             if data_model[col].dtypes == 'O':
-                data_model[col] = label_encoder.transform(data_model[col])
+                data_model[col] = label_encoder.fit_transform(data_model[col])
             else:
                 # else do nothing
                 data_model[col] = data_model[col]
 
         ### imputer &&& RobustScaler
-        transformed_data = transformer.transform(data_model)
+
+        # transformed_data = transformer.transform(data_model[column_name].values[0])
+ 
 
         # Prediction
-        result = model.predict(transformed_data)[0]
+        result = model.predict(data_model)[0]
 
         result= round(float(result), 2)
 

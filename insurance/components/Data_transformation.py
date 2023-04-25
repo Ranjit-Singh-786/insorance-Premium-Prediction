@@ -64,6 +64,7 @@ class DataTransFormation:
                 # to deal with categorical columns
                 label_encoder_obj = LabelEncoder()
                 logging.info(f"shape of the data before labelencoded :- {input_feature_train_df.shape}")
+                logging.info(f"{input_feature_train_df[0]}")
                 for col in input_feature_train_df.columns:
                     if input_feature_test_df[col].dtypes == 'O':
                         input_feature_train_df[col] = label_encoder_obj.fit_transform(input_feature_train_df[col])

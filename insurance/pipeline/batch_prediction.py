@@ -50,7 +50,9 @@ def Batch_predicter(database:bool,input_file_path=default_data_path):
         for i in input_feature_names:       
             if df[i].dtypes =='object':
                 df[i] =target_encoder.fit_transform(df[i])
-
+        logging.info(f"shape of the data before transformation")
+        logging.info(f"{df[input_feature_names].shape} ")
+        logging.info(f" input feature names :- {input_feature_names}")
         input_arr = transformer.transform(df[input_feature_names])
 
         logging.info(f"Loading model to make prediction")

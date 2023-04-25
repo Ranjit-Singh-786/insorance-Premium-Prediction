@@ -1,10 +1,25 @@
 # insorance-Premium-Prediction
 i build a end to end CI/CD pipeline for this project. code written in modular fashion.
+and finally created a flask Api, to get the prediction.
+entire code written in python Oop. Data loaded from mongodb, and all the generated logs. are saved in the logs directory, and all the artifacts of the projects saved
+in the artifacts directory.
 
 ## steps to Run this project
 1. install all the dependencies
 2. run the train.py file
 3. run the main.py
+
+## steps to run API
+1. install all the dependencies
+2. run the python app.py
+3. copy the url and paste into your favourate browser.
+4. fill all the input, and click on the the predict button.
+
+## webframe architecture design or Api Design
+<img src="static/IMAGE/a.png">
+
+<p><b>Api displaying the prediction.<b></p>
+<img src="static/IMAGE/b.png">
 
 ## to install dependency
 pip install -r requirements.txt
